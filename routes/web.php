@@ -9,6 +9,7 @@ use App\Http\Controllers\BlogPostController;
 use App\Http\Controllers\CaseStudyController;
 use App\Http\Controllers\CaseStudyDetailController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\HomeAdminController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PracticeAreaController;
@@ -44,3 +45,9 @@ Route::get('/case-study-detal',[CaseStudyDetailController::class, 'case_study_de
 Route::get('/contact',[ContactController::class, 'contact'])->name('contact');
 Route::get('/practice-area',[PracticeAreaController::class, 'practice_area' ])->name('practice_area');
 Route::get('/practice-area-detail',[PracticeAreaDetailController::class, 'practice_area_detail'])->name('practice_area_detail');
+Route::resource('/home-admin', HomeAdminController::class);
+
+Route::middleware(['auth'])->prefix('/admin')->group(function () {
+    Route::resource('/home-admin', HomeAdminController::class,'home-admin.index');
+
+});
